@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Lulu Flower Boutique — premium floral arrangements" />
+    <title>Lulu Flower Boutique</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --color-primary: #f5e6e0;
+        --color-secondary: #d8bfd8;
+        --color-accent: #4a4a4a;
+        --color-nude: var(--color-primary);
+        --color-lavender: var(--color-secondary);
+        --color-charcoal: var(--color-accent);
+        --color-white: #fffefc;
+        --color-muted: #6b6b6b;
+        --font-serif: "Playfair Display", Georgia, serif;
+        --font-sans: "Montserrat", system-ui, sans-serif;
+        --radius: 12px;
+        --shadow: 0 12px 40px rgba(74, 74, 74, 0.08);
+        --shadow-card: 0 8px 28px rgba(74, 74, 74, 0.1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.55;
+        color: var(--color-accent);
+        background: linear-gradient(
+          180deg,
+          var(--color-white) 0%,
+          var(--color-primary) 45%,
+          color-mix(in srgb, var(--color-primary) 85%, var(--color-secondary)) 100%
+        );
+      }
+
+      .shell {
+        width: min(100%, 76rem);
+        margin: 0 auto;
+        padding: 1rem clamp(1rem, 3vw, 1.85rem) 2.75rem;
+      }
+
+      /* Header */
+      .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 0 1.25rem;
+        border-bottom: 1px solid color-mix(in srgb, var(--color-accent) 14%, transparent);
+      }
+
+      .header-nav {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+
+      .header-nav a {
+        color: var(--color-accent);
+        text-decoration: none;
+      }
+
+      .header-nav a:hover,
+      .header-nav a:focus-visible {
+        color: color-mix(in srgb, var(--color-accent) 75%, var(--color-secondary));
+      }
+
+      .header-nav a:focus-visible {
+        outline: 2px solid var(--color-secondary);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      .brand {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: 1.35rem;
+        letter-spacing: 0.02em;
+      }
+
+      .tagline {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--color-muted);
+      }
+
+      /* Hero */
+      .hero {
+        padding: 2rem 0 1.75rem;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+        line-height: 1.2;
+        margin: 0 0 0.75rem;
+        color: var(--color-charcoal);
+      }
+
+      .hero p {
+        margin: 0 auto;
+        max-width: 28ch;
+        color: var(--color-muted);
+        font-size: 0.95rem;
+      }
+
+      .hero-cta {
+        margin-top: 1.25rem;
+      }
+
+      .hero-cta a {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--color-secondary);
+        text-decoration: none;
+      }
+
+      .hero-cta a:hover,
+      .hero-cta a:focus-visible {
+        text-decoration: underline;
+        color: color-mix(in srgb, var(--color-secondary) 70%, var(--color-accent));
+      }
+
+      /* Catalog */
+      .catalog {
+        margin-bottom: 2rem;
+      }
+
+      .catalog-header {
+        text-align: center;
+        padding: 0.25rem 0 1.25rem;
+        max-width: 36rem;
+        margin-inline: auto;
+      }
+
+      .catalog-header h2 {
+        font-family: var(--font-serif);
+        font-weight: 600;
+        font-size: clamp(1.35rem, 4vw, 1.6rem);
+        margin: 0 0 0.5rem;
+        color: var(--color-accent);
+      }
+
+      .catalog-header p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--color-muted);
+        line-height: 1.5;
+      }
+
+      .catalog-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .filter-group label {
+        display: block;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--color-muted);
+        margin-bottom: 0.45rem;
+      }
+
+      .filter-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+      }
+
+      .filter-chip {
+        font-family: var(--font-sans);
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 0.45rem 0.95rem;
+        border-radius: 999px;
+        border: 1px solid color-mix(in srgb, var(--color-accent) 22%, transparent);
+        background: var(--color-white);
+        color: var(--color-accent);
+        cursor: pointer;
+        transition:
+          background 0.22s ease,
+          color 0.22s ease,
+          border-color 0.22s ease,
+          box-shadow 0.22s ease;
+      }
+
+      .filter-chip:hover,
+      .filter-chip:focus-visible {
+        border-color: var(--color-secondary);
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-secondary) 55%, transparent);
+      }
+
+      .filter-chip:focus-visible {
+        outline: none;
+      }
+
+      .filter-chip.is-active {
+        background: var(--color-accent);
+        border-color: var(--color-accent);
+        color: var(--color-white);
+        box-shadow: 0 6px 18px rgba(74, 74, 74, 0.2);
+      }
+
+      .catalog-count {
+        margin: 0 0 0.85rem;
+        font-size: 0.76rem;
+        color: var(--color-muted);
+        text-align: center;
+      }
+
+      .product-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 560px) {
+        .product-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1.1rem;
+        }
+      }
+
+      @media (min-width: 900px) {
+        .product-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .catalog-controls {
+          flex-direction: row;
+          align-items: flex-end;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .filter-group {
+          min-width: 12rem;
+        }
+      }
+
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--color-white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--color-accent) 8%, transparent);
+        box-shadow: var(--shadow-card);
+        opacity: 0;
+        animation: cardReveal 0.58s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        animation-delay: var(--card-delay, 0ms);
+      }
+
+      .product-card__visual {
+        aspect-ratio: 4 / 5;
+        width: 100%;
+        background: var(--visual-gradient);
+        transition: transform 0.45s ease;
+      }
+
+      .product-card:active .product-card__visual,
+      .product-card:focus-within .product-card__visual {
+        transform: scale(1.01);
+      }
+
+      .product-card__body {
+        padding: 1rem 1rem 1.05rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        background: linear-gradient(180deg, var(--color-white) 0%, var(--color-primary) 165%);
+      }
+
+      .product-card__badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+
+      .product-badge {
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.2rem 0.42rem;
+        border-radius: 6px;
+        background: color-mix(in srgb, var(--color-secondary) 35%, transparent);
+        color: var(--color-accent);
+      }
+
+      .product-card__title {
+        font-family: var(--font-serif);
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin: 0;
+        color: var(--color-accent);
+        line-height: 1.25;
+      }
+
+      .product-card__meta {
+        font-size: 0.78rem;
+        color: var(--color-muted);
+        margin-top: auto;
+      }
+
+      .product-card__row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .product-card__price {
+        font-weight: 700;
+        color: var(--color-accent);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .btn-mini {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.5rem 0.85rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        flex-shrink: 0;
+        background: var(--color-accent);
+        color: var(--color-white);
+        transition: transform 0.15s ease, box-shadow 0.22s ease, background 0.22s ease;
+      }
+
+      .btn-mini:active {
+        transform: scale(0.97);
+      }
+
+      .btn-mini:hover,
+      .btn-mini:focus-visible {
+        background: color-mix(in srgb, var(--color-accent) 88%, black);
+      }
+
+      .btn-mini:focus-visible {
+        outline: 2px solid var(--color-secondary);
+        outline-offset: 2px;
+      }
+
+      @keyframes cardReveal {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .product-card {
+          animation-duration: 0.01ms !important;
+          animation-delay: 0ms !important;
+          transition-duration: 0.01ms !important;
+        }
+
+        .product-card {
+          opacity: 1;
+          transform: none;
+        }
+
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      /* Checkout */
+      .checkout {
+        max-width: 42rem;
+        margin-inline: auto;
+        background: var(--color-white);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 1.25rem 1.15rem 1.5rem;
+        border: 1px solid color-mix(in srgb, var(--color-accent) 8%, transparent);
+      }
+
+      .checkout-title {
+        font-family: var(--font-serif);
+        font-size: 1.2rem;
+        margin: 0 0 0.25rem;
+      }
+
+      .checkout-sub {
+        margin: 0 0 1.25rem;
+        font-size: 0.8rem;
+        color: var(--color-muted);
+      }
+
+      .steps {
+        display: flex;
+        gap: 0.35rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.25rem;
+      }
+
+      .step-pill {
+        flex: 1;
+        min-width: 5.5rem;
+        text-align: center;
+        font-size: 0.68rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.45rem 0.35rem;
+        border-radius: 999px;
+        background: var(--color-nude);
+        color: var(--color-muted);
+        border: 1px solid transparent;
+        transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .step-pill.done {
+        background: rgba(216, 191, 216, 0.45);
+        color: var(--color-charcoal);
+      }
+
+      .step-pill.active {
+        background: var(--color-charcoal);
+        color: var(--color-white);
+        border-color: var(--color-charcoal);
+      }
+
+      .step-panel {
+        display: none;
+        animation: fadeIn 0.35s ease;
+      }
+
+      .step-panel.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .step-panel h2 {
+        font-family: var(--font-serif);
+        font-size: 1.05rem;
+        margin: 0 0 0.75rem;
+      }
+
+      .field {
+        margin-bottom: 0.85rem;
+      }
+
+      .field label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: var(--color-muted);
+      }
+
+      .field input {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        border-radius: 8px;
+        border: 1px solid rgba(74, 74, 74, 0.2);
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+        background: #fff;
+      }
+
+      .field input:focus {
+        outline: 2px solid var(--color-lavender);
+        outline-offset: 1px;
+        border-color: var(--color-lavender);
+      }
+
+      .field select {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        border-radius: 8px;
+        border: 1px solid rgba(74, 74, 74, 0.2);
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+        background: #fff;
+        color: var(--color-accent);
+        appearance: none;
+        background-image: linear-gradient(45deg, transparent 50%, var(--color-muted) 50%),
+          linear-gradient(135deg, var(--color-muted) 50%, transparent 50%);
+        background-position: calc(100% - 1.15rem) 50%, calc(100% - 0.72rem) 50%;
+        background-size: 5px 5px, 5px 5px;
+        background-repeat: no-repeat;
+      }
+
+      .field select:focus {
+        outline: 2px solid var(--color-lavender);
+        outline-offset: 1px;
+        border-color: var(--color-lavender);
+      }
+
+      .field select.invalid {
+        border-color: #c45c5c;
+      }
+
+      .field input.invalid {
+        border-color: #c45c5c;
+      }
+
+      .toggle-field {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.65rem;
+        padding: 0.75rem 0.85rem;
+        border-radius: 10px;
+        background: color-mix(in srgb, var(--color-primary) 75%, transparent);
+        border: 1px solid color-mix(in srgb, var(--color-secondary) 45%, transparent);
+        margin-bottom: 0.85rem;
+      }
+
+      .toggle-field input[type="checkbox"] {
+        margin-top: 0.35rem;
+        width: 1.05rem;
+        height: 1.05rem;
+        accent-color: var(--color-accent);
+        flex-shrink: 0;
+      }
+
+      .toggle-field__copy {
+        flex: 1;
+      }
+
+      .toggle-field__label {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin: 0 0 0.2rem;
+      }
+
+      .toggle-field__hint {
+        margin: 0;
+        font-size: 0.72rem;
+        color: var(--color-muted);
+        line-height: 1.35;
+      }
+
+      .lang-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        max-width: 11rem;
+      }
+
+      .lang-switch button {
+        font-family: var(--font-sans);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        padding: 0.28rem 0.45rem;
+        border-radius: 6px;
+        border: 1px solid color-mix(in srgb, var(--color-accent) 24%, transparent);
+        background: var(--color-white);
+        color: var(--color-muted);
+        cursor: pointer;
+      }
+
+      .lang-switch button.is-active {
+        background: var(--color-accent);
+        color: var(--color-white);
+        border-color: var(--color-accent);
+      }
+
+      .header-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.55rem;
+      }
+
+      .actions {
+        margin-top: 1.1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+
+      .btn {
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.85rem 1rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      }
+
+      .btn:active {
+        transform: scale(0.98);
+      }
+
+      .btn-primary {
+        background: var(--color-charcoal);
+        color: var(--color-white);
+        box-shadow: 0 6px 20px rgba(74, 74, 74, 0.25);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .btn-accent {
+        background: linear-gradient(
+          120deg,
+          color-mix(in srgb, var(--color-secondary) 55%, #1a237e),
+          color-mix(in srgb, var(--color-accent) 85%, black)
+        );
+        color: var(--color-white);
+        border: none;
+      }
+
+      .btn-accent:hover,
+      .btn-accent:focus-visible {
+        filter: brightness(1.04);
+      }
+
+      .status-bar {
+        margin-top: 1rem;
+        padding: 0.65rem 0.75rem;
+        border-radius: 8px;
+        background: var(--color-nude);
+        font-size: 0.78rem;
+        color: var(--color-muted);
+      }
+
+      .status-bar strong {
+        color: var(--color-charcoal);
+        font-weight: 600;
+      }
+
+      .error-msg {
+        margin-top: 0.5rem;
+        font-size: 0.78rem;
+        color: #a94444;
+        min-height: 1.2em;
+      }
+
+      #panel-idle-hint a {
+        font-weight: 600;
+        color: var(--color-accent);
+        text-underline-offset: 2px;
+      }
+
+      #panel-idle-hint a:hover,
+      #panel-idle-hint a:focus-visible {
+        color: color-mix(in srgb, var(--color-accent) 55%, var(--color-secondary));
+      }
+
+      @media (min-width: 480px) {
+        .actions {
+          flex-direction: row;
+          flex-wrap: wrap;
+        }
+
+        .btn {
+          flex: 1;
+          min-width: 8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="site-header">
+        <div>
+          <div class="brand">Lulu</div>
+          <div class="tagline" data-i18n="brand_tagline">Flower Boutique</div>
+        </div>
+        <div class="header-right">
+          <div class="lang-switch" role="group" aria-label="Language">
+            <button type="button" id="lang-en" lang="en" data-lang-btn="en" class="is-active">EN</button>
+            <button type="button" id="lang-ua" lang="uk" data-lang-btn="ua">UA</button>
+            <button type="button" id="lang-bg" lang="bg" data-lang-btn="bg">BG</button>
+          </div>
+          <nav class="header-nav" aria-label="Primary">
+            <a href="#catalog" data-i18n="nav_shop">Shop</a>
+            <span aria-hidden="true"> · </span>
+            <a href="#checkout" data-i18n="nav_checkout">Checkout</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <h1 id="hero-title" data-i18n="hero_title">
+          Arrangements crafted for fleeting moments.
+        </h1>
+        <p data-i18n="hero_sub">Mobile-first luxury florals — soft palettes, tactile finishes, and a checkout that survives refresh.</p>
+        <p class="hero-cta"><a href="#catalog" data-i18n="hero_cta">Explore the catalogue</a></p>
+      </section>
+
+      <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+        <header class="catalog-header">
+          <h2 id="catalog-title" data-i18n="catalog_title">Seasonal arrangements</h2>
+          <p data-i18n="catalog_intro">Narrow compositions by blossom and palette. Filters refine instantly — no reloads.</p>
+        </header>
+
+        <div class="catalog-controls">
+          <div class="filter-group" role="group" aria-labelledby="filter-type-label">
+            <span id="filter-type-label" data-i18n="filter_flower_type">Flower type</span>
+            <div class="filter-row" id="filter-type-row"></div>
+          </div>
+          <div class="filter-group" role="group" aria-labelledby="filter-palette-label">
+            <span id="filter-palette-label" data-i18n="filter_color_palette">Colour palette</span>
+            <div class="filter-row" id="filter-palette-row"></div>
+          </div>
+        </div>
+
+        <p class="catalog-count" id="catalog-count" aria-live="polite"></p>
+        <div class="product-grid" id="product-grid" role="list"></div>
+      </section>
+
+      <section class="checkout" id="checkout" aria-labelledby="checkout-title">
+        <h2 id="checkout-title" class="checkout-title" data-i18n="checkout_title">Checkout</h2>
+        <p class="checkout-sub" data-i18n="checkout_sub">
+          State syncs to local storage; guards keep you on the last valid step.
+        </p>
+
+        <div class="steps" role="tablist" aria-label="Checkout steps">
+          <div class="step-pill" data-step-indicator="idle"><span data-i18n-step="idle">Idle</span></div>
+          <div class="step-pill" data-step-indicator="cart"><span data-i18n-step="cart">Cart</span></div>
+          <div class="step-pill" data-step-indicator="recipient"><span data-i18n-step="recipient">Recipient</span></div>
+          <div class="step-pill" data-step-indicator="delivery"><span data-i18n-step="delivery">Delivery</span></div>
+          <div class="step-pill" data-step-indicator="payment"><span data-i18n-step="payment">Pay</span></div>
+        </div>
+
+        <!-- Step: IDLE / welcome -->
+        <div class="step-panel" id="panel-idle" data-panel="idle">
+          <h2 data-i18n="idle_heading">Start your order</h2>
+          <p style="margin: 0 0 1rem; font-size: 0.88rem; color: var(--color-muted)" id="panel-idle-hint"></p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-order" data-i18n="btn_order">Order</button>
+          </div>
+        </div>
+
+        <!-- Step: CART_FILLED -->
+        <div class="step-panel" id="panel-cart" data-panel="cart">
+          <h2 data-i18n="cart_heading">Your selection</h2>
+          <p style="margin: 0 0 1rem; font-size: 0.88rem; color: var(--color-muted)" id="cart-summary"></p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-order-cart" data-i18n="btn_continue">Continue</button>
+            <button type="button" class="btn btn-ghost" id="btn-back-cart" data-i18n="btn_back">Back</button>
+          </div>
+          <div class="error-msg" id="cart-error" aria-live="polite"></div>
+        </div>
+
+        <!-- Step: RECIPIENT -->
+        <div class="step-panel" id="panel-recipient" data-panel="recipient">
+          <h2 data-i18n="recipient_heading">Recipient &amp; message</h2>
+          <div class="toggle-field">
+            <input type="checkbox" id="surprise-delivery" name="surpriseDelivery" />
+            <div class="toggle-field__copy">
+              <p class="toggle-field__label" data-i18n="surprise_label">Surprise delivery</p>
+              <p class="toggle-field__hint" data-i18n="surprise_hint">Hide sender name on the card until the bouquet arrives.</p>
+            </div>
+          </div>
+          <div class="field" id="sender-field">
+            <label for="sender-name" data-i18n="sender_label">Sender name</label>
+            <input
+              id="sender-name"
+              name="senderName"
+              type="text"
+              autocomplete="name"
+              data-i18n-placeholder="sender_ph"
+              placeholder="Alex Morgan"
+            />
+          </div>
+          <div class="field">
+            <label for="recipient-name" data-i18n="recipient_name_label">Recipient name</label>
+            <input
+              id="recipient-name"
+              name="recipientName"
+              type="text"
+              autocomplete="shipping name"
+              data-i18n-placeholder="recipient_name_ph"
+              placeholder="Jordan Lee"
+            />
+          </div>
+          <div class="field">
+            <label for="recipient-phone" data-i18n="recipient_phone_label">Phone</label>
+            <input
+              id="recipient-phone"
+              name="recipientPhone"
+              type="tel"
+              autocomplete="tel"
+              data-i18n-placeholder="recipient_phone_ph"
+              placeholder="+359 …"
+            />
+          </div>
+          <div class="field">
+            <label for="gift-message" data-i18n="gift_msg_label">Gift message (optional)</label>
+            <input id="gift-message" name="giftMessage" type="text" data-i18n-placeholder="gift_msg_ph" placeholder="Thinking of you" />
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-order-recipient" data-i18n="btn_continue_delivery">Continue to delivery</button>
+            <button type="button" class="btn btn-ghost" id="btn-back-recipient" data-i18n="btn_back">Back</button>
+          </div>
+          <div class="error-msg" id="recipient-error" aria-live="polite"></div>
+        </div>
+
+        <!-- Step: DELIVERY -->
+        <div class="step-panel" id="panel-delivery" data-panel="delivery">
+          <h2 data-i18n="delivery_heading">Delivery schedule</h2>
+          <p style="margin: 0 0 1rem; font-size: 0.88rem; color: var(--color-muted)" data-i18n="delivery_intro">
+            Choose an available date and time window — we reserve capacity per slot.
+          </p>
+          <div class="field">
+            <label for="delivery-date" data-i18n="delivery_date_label">Delivery date</label>
+            <input id="delivery-date" name="deliveryDate" type="date" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="delivery-slot" data-i18n="delivery_slot_label">Time slot</label>
+            <select id="delivery-slot" name="deliverySlot">
+              <option value="" data-i18n-slot-opt="placeholder"></option>
+              <option value="morning" data-i18n-slot-opt="morning"></option>
+              <option value="afternoon" data-i18n-slot-opt="afternoon"></option>
+              <option value="evening" data-i18n-slot-opt="evening"></option>
+            </select>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-continue-delivery" data-i18n="btn_continue_payment">Continue to payment</button>
+            <button type="button" class="btn btn-ghost" id="btn-back-delivery" data-i18n="btn_back">Back</button>
+          </div>
+          <div class="error-msg" id="delivery-error" aria-live="polite"></div>
+        </div>
+
+        <!-- Step: PAYMENT -->
+        <div class="step-panel" id="panel-payment" data-panel="payment">
+          <h2 data-i18n="payment_heading">Payment</h2>
+          <p style="margin: 0 0 1rem; font-size: 0.88rem; color: var(--color-muted)" data-i18n="payment_intro">
+            Express checkout previews Apple Pay / Google Pay UX; Stripe processes cards in production.
+          </p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary btn-accent" id="btn-pay-wallet" data-i18n="btn_pay_wallet">
+              Pay with Stripe / Apple&nbsp;Pay
+            </button>
+            <button type="button" class="btn btn-primary" id="btn-complete-payment" data-i18n="btn_pay_card_demo">
+              Pay with card (demo)
+            </button>
+            <button type="button" class="btn btn-ghost" id="btn-back-payment" data-i18n="btn_back">Back</button>
+          </div>
+        </div>
+
+        <!-- Completed -->
+        <div class="step-panel" id="panel-complete" data-panel="complete">
+          <h2 data-i18n="thank_title">Thank you</h2>
+          <p style="margin: 0 0 1rem; font-size: 0.88rem; color: var(--color-muted)" id="thank-summary"></p>
+            Your order preview is saved locally — we will follow up when live payments are enabled.
+          </p>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-reset-flow" data-i18n="btn_new_order">New order</button>
+          </div>
+        </div>
+
+        <div class="status-bar" id="status-bar" aria-live="polite">
+          <span data-i18n="status_machine">Machine</span>:
+          <span id="status-state">…</span>
+          <span data-i18n="status_persist">· persisted locally</span>
+        </div>
+      </section>
+    </div>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
