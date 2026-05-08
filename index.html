@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Lulu Flower Boutique — mono-bouquets, author mixes, and wedding decor. A visual showcase."
+    />
+    <meta name="theme-color" content="#F5E6E0" />
+    <title>Lulu Flower Boutique</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --nude: #f5e6e0;
+        --charcoal: #4a4a4a;
+        --lavender: #d8bfd8;
+        --white: #fffcfa;
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-body: "Montserrat", system-ui, sans-serif;
+        --header-h: 4.25rem;
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(var(--header-h) + 0.35rem);
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-body);
+        font-size: clamp(0.9375rem, 2.8vw, 1rem);
+        font-weight: 400;
+        line-height: 1.65;
+        color: var(--charcoal);
+        background: var(--nude);
+        letter-spacing: 0.02em;
+      }
+
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        min-height: var(--header-h);
+        padding: 0.65rem clamp(1rem, 4vw, 2rem);
+        background: color-mix(in srgb, var(--nude) 58%, transparent);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid color-mix(in srgb, var(--charcoal) 8%, transparent);
+      }
+
+      .logo {
+        font-family: var(--font-display);
+        font-weight: 600;
+        font-size: clamp(1.05rem, 3vw, 1.35rem);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--charcoal);
+      }
+
+      .logo small {
+        display: block;
+        font-family: var(--font-body);
+        font-size: 0.55em;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        opacity: 0.72;
+        margin-top: 0.15rem;
+      }
+
+      .header-nav {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        font-size: 0.61rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      @media (min-width: 760px) {
+        .header-nav {
+          display: flex;
+          gap: 1.25rem;
+          font-size: 0.68rem;
+          letter-spacing: 0.2em;
+        }
+      }
+
+      .header-nav a {
+        color: var(--charcoal);
+        text-decoration: none;
+        transition: color 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      }
+
+      .header-nav a:hover,
+      .header-nav a:focus-visible {
+        color: color-mix(in srgb, var(--charcoal) 55%, var(--lavender));
+      }
+
+      .lang-toggle {
+        display: flex;
+        flex-shrink: 0;
+        border: 1px solid color-mix(in srgb, var(--charcoal) 22%, transparent);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .lang-toggle button {
+        margin: 0;
+        padding: 0.4rem 0.5rem;
+        font-family: var(--font-body);
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--charcoal);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        min-width: 2.35rem;
+        min-height: 2.45rem;
+        transition: background 0.4s ease-in-out, color 0.4s ease-in-out, transform 0.4s ease-in-out;
+      }
+
+      .lang-toggle button[aria-pressed="true"] {
+        background: var(--charcoal);
+        color: var(--white);
+      }
+
+      .lang-toggle button:focus-visible {
+        outline: 2px solid var(--lavender);
+        outline-offset: 2px;
+      }
+
+      .page-motion {
+        transition: opacity 0.4s ease-in-out;
+        will-change: opacity;
+      }
+
+      .page-motion.is-lang-dim {
+        opacity: 0.14;
+        pointer-events: none;
+      }
+
+      /* Scroll reveal */
+      .js-reveal {
+        opacity: 0;
+        transform: translateY(1.35rem);
+        transition:
+          opacity 0.78s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.78s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: calc(var(--stagger, 0) * 0.065s);
+      }
+
+      .js-reveal.is-revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100dvh;
+        min-height: 100svh;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: calc(var(--header-h) + 2rem) 1.25rem 3rem;
+        margin-top: 0;
+      }
+
+      .hero__media {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+
+      .hero__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero__scrim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(74, 74, 74, 0.28) 0%,
+          rgba(74, 74, 74, 0.45) 45%,
+          rgba(74, 74, 74, 0.62) 100%
+        );
+        pointer-events: none;
+      }
+
+      .hero__content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 22ch;
+      }
+
+      .hero__content h1 {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(2rem, 8vw, 3.35rem);
+        line-height: 1.12;
+        letter-spacing: 0.06em;
+        color: var(--white);
+        text-shadow: 0 4px 28px rgba(0, 0, 0, 0.35);
+      }
+
+      .hero__content h1.hero-tagline--playing {
+        animation: heroTaglineReveal 1.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+
+      @keyframes heroTaglineReveal {
+        from {
+          opacity: 0;
+          letter-spacing: 0.38em;
+        }
+        to {
+          opacity: 1;
+          letter-spacing: 0.06em;
+        }
+      }
+
+      .hero__content p.hero__sub-motion {
+        margin: 1rem 0 0;
+        font-family: var(--font-body);
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--nude) 92%, transparent);
+        opacity: 0;
+      }
+
+      .hero__content p.hero__sub-motion.hero__sub--playing {
+        animation: heroSubReveal 1.05s ease-in-out 0.42s forwards;
+      }
+
+      @keyframes heroSubReveal {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* About */
+      .about {
+        padding: clamp(2.75rem, 8vw, 4.25rem) clamp(1.15rem, 4vw, 2rem);
+        background: linear-gradient(180deg, var(--white) 0%, var(--nude) 100%);
+        border-bottom: 1px solid color-mix(in srgb, var(--lavender) 35%, transparent);
+      }
+
+      .about__inner {
+        max-width: 38rem;
+        margin-inline: auto;
+      }
+
+      .about__inner .about__kicker {
+        margin: 0 0 0.65rem;
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--charcoal) 65%, var(--lavender));
+      }
+
+      .about__inner h2.about__heading {
+        margin: 0 0 1.25rem;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(1.6rem, 4.2vw, 2rem);
+        line-height: 1.18;
+        color: var(--charcoal);
+      }
+
+      .about__inner .about__prose {
+        font-size: 0.92rem;
+        font-weight: 400;
+      }
+
+      .about__inner .about__prose p {
+        margin: 0 0 1rem;
+      }
+
+      .about__inner .about__prose p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Catalog */
+      .catalog {
+        padding: clamp(2.5rem, 7vw, 4rem) clamp(1rem, 4vw, 2rem) 3rem;
+        background: linear-gradient(
+          180deg,
+          var(--nude) 0%,
+          color-mix(in srgb, var(--lavender) 22%, var(--nude)) 100%
+        );
+      }
+
+      .catalog__intro {
+        text-align: center;
+        max-width: 36rem;
+        margin: 0 auto 2.5rem;
+      }
+
+      .catalog__intro h2 {
+        margin: 0 0 0.5rem;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(1.65rem, 4.5vw, 2.15rem);
+        color: var(--charcoal);
+      }
+
+      .catalog__intro p {
+        margin: 0;
+        font-size: 0.9rem;
+        opacity: 0.82;
+      }
+
+      .catalog-section {
+        margin-bottom: clamp(2.5rem, 6vw, 3.5rem);
+      }
+
+      .catalog-section:last-child {
+        margin-bottom: 0;
+      }
+
+      .catalog-section h3 {
+        margin: 0 0 1.25rem;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(1.25rem, 3.5vw, 1.55rem);
+        letter-spacing: 0.04em;
+        color: var(--charcoal);
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid color-mix(in srgb, var(--lavender) 65%, var(--charcoal));
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+
+      @media (min-width: 520px) {
+        .product-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 960px) {
+        .product-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      .product-card {
+        display: flex;
+        flex-direction: column;
+        background: color-mix(in srgb, var(--white) 88%, var(--nude));
+        border: 1px solid color-mix(in srgb, var(--charcoal) 8%, transparent);
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 12px 36px rgba(74, 74, 74, 0.08);
+        transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 22px 52px rgba(74, 74, 74, 0.14);
+      }
+
+      .product-card__media {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        background: color-mix(in srgb, var(--lavender) 22%, var(--nude));
+      }
+
+      .product-card__photo {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .product-card__photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        opacity: 0;
+        transform: scale(1);
+        transform-origin: center center;
+        transition: opacity 0.55s ease, transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .product-card__photo img.is-loaded {
+        opacity: 1;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .product-card:hover .product-card__photo img.is-loaded {
+          transform: scale(1.05);
+        }
+      }
+
+      @media (hover: none) {
+        .product-card:active .product-card__photo img.is-loaded {
+          transform: scale(1.05);
+        }
+      }
+
+      .product-card__price-row {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-shrink: 0;
+        padding: 0.52rem 0.65rem;
+        background: var(--nude);
+        border-top: 1px solid color-mix(in srgb, var(--charcoal) 9%, transparent);
+      }
+
+      .product-card__price-tag {
+        display: inline-block;
+        margin: 0;
+        padding: 0.38rem 0.78rem;
+        font-family: var(--font-display);
+        font-size: 0.88rem;
+        font-weight: 600;
+        font-style: normal;
+        letter-spacing: 0.1em;
+        line-height: 1.25;
+        color: var(--charcoal);
+        background: color-mix(in srgb, var(--nude) 78%, var(--white));
+        border: 1px solid color-mix(in srgb, var(--charcoal) 11%, transparent);
+        border-radius: 6px;
+        box-shadow: none;
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: default;
+        user-select: none;
+        transition: border-color 0.4s ease-in-out, background 0.4s ease-in-out;
+      }
+
+      .product-card__body {
+        padding: 1.05rem 1.1rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.6rem;
+        min-height: 0;
+      }
+
+      .product-card__title {
+        margin: 0;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: 1.15rem;
+        line-height: 1.25;
+        color: var(--charcoal);
+      }
+
+      .product-card__desc {
+        margin: 0;
+        font-size: 0.8rem;
+        line-height: 1.55;
+        color: color-mix(in srgb, var(--charcoal) 78%, var(--lavender));
+        flex: 0 0 auto;
+      }
+
+      .btn-instagram {
+        margin-top: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.85rem;
+        padding: 0 1rem;
+        font-family: var(--font-body);
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: var(--white);
+        background: var(--charcoal);
+        border-radius: 2px;
+        transition: background 0.4s ease-in-out, transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      }
+
+      .btn-instagram:hover,
+      .btn-instagram:focus-visible {
+        background: color-mix(in srgb, var(--charcoal) 88%, #000);
+        transform: translateY(-1px);
+      }
+
+      .btn-instagram:focus-visible {
+        outline: 2px solid var(--lavender);
+        outline-offset: 2px;
+      }
+
+      /* Reviews */
+      .reviews {
+        padding: clamp(2.75rem, 8vw, 4rem) 0 clamp(2.75rem, 8vw, 4rem);
+        padding-left: clamp(1rem, 4vw, 2rem);
+        background: var(--white);
+        border-bottom: 1px solid color-mix(in srgb, var(--charcoal) 8%, transparent);
+      }
+
+      .reviews .reviews__shell {
+        max-width: 72rem;
+        margin-inline: auto;
+      }
+
+      .reviews__heading-block {
+        text-align: center;
+        max-width: 32rem;
+        margin-bottom: 1.75rem;
+        padding-right: clamp(1rem, 4vw, 2rem);
+      }
+
+      .reviews__heading-block.js-reveal {
+        --stagger: 0;
+      }
+
+      .reviews__heading-block h2 {
+        margin: 0 0 0.35rem;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(1.5rem, 4vw, 1.95rem);
+        color: var(--charcoal);
+      }
+
+      .reviews__heading-block p {
+        margin: 0;
+        font-size: 0.88rem;
+        opacity: 0.78;
+      }
+
+      .reviews-scroller {
+        display: flex;
+        gap: 1rem;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 0.85rem;
+        padding-right: clamp(1rem, 4vw, 2rem);
+        scrollbar-color: color-mix(in srgb, var(--lavender) 80%, var(--charcoal)) transparent;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .reviews-scroller::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      .reviews-scroller::-webkit-scrollbar-thumb {
+        background: color-mix(in srgb, var(--lavender) 70%, var(--charcoal));
+        border-radius: 3px;
+      }
+
+      .review-card {
+        flex: 0 0 min(86vw, 22rem);
+        scroll-snap-align: start;
+        padding: 1.2rem 1.25rem 1.35rem;
+        background: color-mix(in srgb, var(--nude) 55%, var(--white));
+        border: 1px solid color-mix(in srgb, var(--charcoal) 8%, transparent);
+        border-radius: 4px;
+        box-shadow: 0 8px 28px rgba(74, 74, 74, 0.07);
+      }
+
+      .review-card__meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 0.85rem;
+        flex-wrap: wrap;
+      }
+
+      .review-card__stars {
+        font-size: 0.78rem;
+        letter-spacing: 0.06em;
+        color: color-mix(in srgb, var(--charcoal) 75%, var(--lavender));
+      }
+
+      .review-card__stars .sr-only-rating {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .review-card__verified {
+        font-size: 0.56rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: color-mix(in srgb, var(--charcoal) 70%, var(--lavender));
+        padding: 0.28rem 0.45rem;
+        border-radius: 2px;
+        border: 1px solid color-mix(in srgb, var(--lavender) 55%, var(--charcoal));
+        background: color-mix(in srgb, var(--white) 70%, transparent);
+      }
+
+      .review-card blockquote {
+        margin: 0;
+        font-size: 0.86rem;
+        line-height: 1.62;
+      }
+
+      .review-card cite {
+        display: block;
+        margin-top: 1rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+        font-style: normal;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.85;
+      }
+
+      @media (min-width: 960px) {
+        .reviews {
+          padding-left: clamp(1rem, 4vw, 2rem);
+          padding-right: clamp(1rem, 4vw, 2rem);
+        }
+
+        .reviews-scroller {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 1rem;
+          overflow-x: visible;
+          scroll-snap-type: none;
+          padding-right: 0;
+        }
+
+        .review-card {
+          flex: none;
+        }
+      }
+
+      footer.site-footer {
+        padding: clamp(2rem, 5vw, 2.75rem) clamp(1rem, 4vw, 2rem);
+        border-top: 1px solid color-mix(in srgb, var(--charcoal) 10%, transparent);
+        background: var(--charcoal);
+        color: color-mix(in srgb, var(--nude) 92%, var(--white));
+      }
+
+      .footer-inner {
+        max-width: 40rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .footer-inner h2 {
+        margin: 0 0 0.35rem;
+        font-family: var(--font-display);
+        font-weight: 500;
+        font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+        color: var(--white);
+      }
+
+      .footer-inner > p {
+        margin: 0 0 1.5rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.65rem 1.25rem;
+      }
+
+      .footer-links a {
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--lavender);
+        text-decoration: none;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid transparent;
+        transition: color 0.4s ease-in-out, border-color 0.4s ease-in-out, opacity 0.4s ease-in-out;
+      }
+
+      .footer-links a:hover,
+      .footer-links a:focus-visible {
+        color: var(--nude);
+        border-bottom-color: color-mix(in srgb, var(--lavender) 80%, transparent);
+      }
+
+      .footer-note {
+        margin: 1.75rem 0 0;
+        font-size: 0.65rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        opacity: 0.45;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        .page-motion {
+          transition: none;
+        }
+        .page-motion.is-lang-dim {
+          opacity: 1;
+        }
+        .js-reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+        .hero__content h1.hero-tagline--playing,
+        .hero__content p.hero__sub-motion.hero__sub--playing {
+          animation: none !important;
+        }
+        .hero__content h1 {
+          opacity: 1;
+          letter-spacing: 0.06em;
+        }
+        .hero__content p.hero__sub-motion {
+          opacity: 1;
+        }
+        .product-card:hover {
+          transform: none;
+        }
+        .product-card:hover .product-card__photo img.is-loaded,
+        .product-card:active .product-card__photo img.is-loaded {
+          transform: none;
+        }
+        .btn-instagram:hover {
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="logo">
+        Lulu
+        <small data-i18n="logo_sub">Flower Boutique</small>
+      </div>
+      <nav class="header-nav" aria-label="Primary">
+        <a href="#about" data-smooth-scroll="#about" data-i18n="nav_about">About</a>
+        <a href="#catalog" data-smooth-scroll="#catalog" data-i18n="nav_catalog">Catalog</a>
+        <a href="#reviews" data-smooth-scroll="#reviews" data-i18n="nav_reviews">Reviews</a>
+        <a href="#contacts" data-smooth-scroll="#contacts" data-i18n="nav_contacts">Contacts</a>
+      </nav>
+      <div class="lang-toggle" role="group" data-i18n-aria="lang_group_label" aria-label="Language">
+        <button type="button" data-lang="en" id="lang-en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="bg" id="lang-bg" aria-pressed="false">BG</button>
+        <button type="button" data-lang="ua" id="lang-ua" aria-pressed="false">UA</button>
+      </div>
+    </header>
+
+    <div class="page-motion" id="page-motion">
+    <section class="hero" aria-labelledby="hero-tagline">
+      <div class="hero__media" aria-hidden="true">
+        <img
+          id="hero-image"
+          src="https://images.unsplash.com/photo-1487530811176-3780de880c2d?auto=format&amp;fit=crop&amp;w=1920&amp;h=1280&amp;q=85"
+          alt=""
+          width="1920"
+          height="1280"
+          fetchpriority="high"
+          decoding="async"
+        />
+        <div class="hero__scrim"></div>
+      </div>
+      <div class="hero__content">
+        <h1 id="hero-tagline" data-i18n="hero_tagline">The Art of Gifting Emotions</h1>
+        <p class="hero__sub-motion" data-i18n="hero_sub">Sofia · Editorial florals</p>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-heading-root">
+      <div id="about-root" class="about__inner"></div>
+    </section>
+
+    <main class="catalog" id="catalog">
+      <div class="catalog__intro js-reveal" style="--stagger: 0">
+        <h2 data-i18n="catalog_title">The collection</h2>
+        <p data-i18n="catalog_intro">Three lines of work from the Lulu atelier — each piece composed for stillness and gesture.</p>
+      </div>
+
+      <section class="catalog-section" aria-labelledby="cat-mono-title">
+        <h3 id="cat-mono-title" data-i18n="cat_mono">Mono-bouquets</h3>
+        <div class="product-grid" data-category-grid="mono"></div>
+      </section>
+
+      <section class="catalog-section" aria-labelledby="cat-author-title">
+        <h3 id="cat-author-title" data-i18n="cat_author">Author Mixes</h3>
+        <div class="product-grid" data-category-grid="author"></div>
+      </section>
+
+      <section class="catalog-section" aria-labelledby="cat-wedding-title">
+        <h3 id="cat-wedding-title" data-i18n="cat_wedding">Wedding Decor</h3>
+        <div class="product-grid" data-category-grid="wedding"></div>
+      </section>
+    </main>
+
+    <section class="reviews" id="reviews" aria-labelledby="reviews-heading-root">
+      <div class="reviews__shell">
+        <div id="reviews-root-heading" class="reviews__heading-block js-reveal" style="--stagger: 0"></div>
+        <div id="reviews-root" class="reviews-scroller" role="list"></div>
+      </div>
+    </section>
+
+    <footer class="site-footer" id="contacts">
+      <div class="footer-inner">
+        <h2 data-i18n="footer_title">Connect</h2>
+        <p data-i18n="footer_sub">Follow the work — no forms, no noise.</p>
+        <div class="footer-links">
+          <a
+            href="https://www.instagram.com/lulu.flower.boutique/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-i18n="link_instagram"
+            >Instagram</a
+          >
+          <a href="https://wa.me/359888123456" target="_blank" rel="noopener noreferrer" data-i18n="link_whatsapp"
+            >WhatsApp</a
+          >
+          <a href="https://t.me/lulu_flower_boutique" target="_blank" rel="noopener noreferrer" data-i18n="link_telegram"
+            >Telegram</a
+          >
+        </div>
+        <p class="footer-note" data-i18n="footer_handle">@lulu.flower.boutique</p>
+      </div>
+    </footer>
+
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
